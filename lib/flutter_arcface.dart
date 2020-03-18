@@ -6,7 +6,7 @@ class FlutterArcface {
   static const MethodChannel _channel =
       const MethodChannel('flutter_arcface');
 
-  static Future<String> get platformVersion async {
+  static Future<String> active() async {
     final String version = await _channel.invokeMethod('activeCode');
     return version;
   }

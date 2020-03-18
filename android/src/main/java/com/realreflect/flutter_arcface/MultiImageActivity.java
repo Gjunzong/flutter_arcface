@@ -66,21 +66,21 @@ public class MultiImageActivity {
     public String CompareImage(Activity activity, final String path1, final String path2) {
 
         if (path1 == null || path2 == null) {
-            return "path null";
+            return "0";
         }
         Bitmap bmp = BitmapFactory.decodeFile(path1);
         mainBitmap = bmp;
         if (mainBitmap == null) {
-            return "mainBitmap fail";
+            return "0";
         }
         processImage(mainBitmap, TYPE_MAIN);
 
         Bitmap bitmap = BitmapFactory.decodeFile(path2);
         if (bitmap == null) {
-            return "bitmap null";
+            return "0";
         }
         if (mainFeature == null) {
-            return "feature null";
+            return "0";
         }
         processImage(bitmap, TYPE_ITEM);
 

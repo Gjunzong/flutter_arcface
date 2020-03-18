@@ -39,6 +39,7 @@ public class SingleActivity {
      * 被处理的图片
      */
     private Bitmap mBitmap = null;
+    private String faceInfo="";
 
     public void initEngine(Activity activity) {
         faceEngine = new FaceEngine();
@@ -69,6 +70,7 @@ public class SingleActivity {
         /**
          * 1.准备操作（校验，显示，获取BGR）
          */
+        mBitmap=null;
         Bitmap rotatedBitmap = null;
         if (mBitmap == null) {
             //读取图片旋转角度，把角度置为0
@@ -83,12 +85,16 @@ public class SingleActivity {
                 switch (orientation){
                     case  ExifInterface.ORIENTATION_ROTATE_90:
                         rotatedBitmap = rotate(mBitmap,90);
+                        Log.i(TAG, "rotate:" + 90);
                         break;
                     case ExifInterface.ORIENTATION_ROTATE_180:
                         rotatedBitmap = rotate(mBitmap,180);
+                        Log.i(TAG, "rotate:" + 180);
                         break;
                     case ExifInterface.ORIENTATION_ROTATE_270:
                         rotatedBitmap = rotate(mBitmap,270);
+                        Log.i(TAG, "rotate:" + 270);
+                        break;
                     case ExifInterface.ORIENTATION_NORMAL:
                         default:
                             rotatedBitmap = mBitmap;
@@ -98,26 +104,26 @@ public class SingleActivity {
             }
         }
         Bitmap bitmap = rotatedBitmap.copy(Bitmap.Config.ARGB_8888, true);
-
         final SpannableStringBuilder notificationSpannableStringBuilder = new SpannableStringBuilder();
+        final SpannableStringBuilder alivenessStringBuilder = new SpannableStringBuilder();
         if (faceEngineCode != ErrorInfo.MOK) {
             addNotificationInfo(notificationSpannableStringBuilder, null, " face engine not initialized!");
-            return notificationSpannableStringBuilder.toString();
+            return "0";
         }
         if (bitmap == null) {
             addNotificationInfo(notificationSpannableStringBuilder, null, " bitmap is null!");
-            return notificationSpannableStringBuilder.toString();
+            return "0";
         }
         if (faceEngine == null) {
             addNotificationInfo(notificationSpannableStringBuilder, null, " faceEngine is null!");
-            return notificationSpannableStringBuilder.toString();
+            return "0";
         }
 
         bitmap = ImageUtil.alignBitmapForBgr24(bitmap);
 
         if (bitmap == null) {
             addNotificationInfo(notificationSpannableStringBuilder, null, " bitmap is null!");
-            return notificationSpannableStringBuilder.toString();
+            return "0";
         }
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
@@ -128,7 +134,7 @@ public class SingleActivity {
 
         if (bgr24 == null) {
             addNotificationInfo(notificationSpannableStringBuilder, new ForegroundColorSpan(Color.RED), "can not get bgr24 data of bitmap!\n");
-            return notificationSpannableStringBuilder.toString();
+            return "0";
         }
         List<FaceInfo> faceInfoList = new ArrayList<>();
 
@@ -171,7 +177,7 @@ public class SingleActivity {
             final Bitmap finalBitmapForDraw = bitmapForDraw;
         } else {
             addNotificationInfo(notificationSpannableStringBuilder, null, "can not do further action, exit!");
-            return notificationSpannableStringBuilder.toString();
+            return"0";
         }
         addNotificationInfo(notificationSpannableStringBuilder, null, "\n");
 
@@ -205,7 +211,7 @@ public class SingleActivity {
         if ((ageCode | genderCode | face3DAngleCode | livenessCode) != ErrorInfo.MOK) {
             addNotificationInfo(notificationSpannableStringBuilder, null, "at least one of age,gender,face3DAngle detect failed!,codes are:",
                     String.valueOf(ageCode), " , ", String.valueOf(genderCode), " , ", String.valueOf(face3DAngleCode));
-            return notificationSpannableStringBuilder.toString();
+            return "0";
         }
         /**
          * 5.年龄、性别、三维角度已获取成功，添加信息到提示文字中
@@ -215,6 +221,7 @@ public class SingleActivity {
             addNotificationInfo(notificationSpannableStringBuilder, new StyleSpan(Typeface.BOLD), "age of each face:\n");
         }
         for (int i = 0; i < ageInfoList.size(); i++) {
+            faceInfo="{'face':''}";
             addNotificationInfo(notificationSpannableStringBuilder, null, "face[", String.valueOf(i), "]:", String.valueOf(ageInfoList.get(i).getAge()), "\n");
         }
         addNotificationInfo(notificationSpannableStringBuilder, null, "\n");
@@ -243,6 +250,25 @@ public class SingleActivity {
         //活体检测数据
         if (livenessInfoList.size() > 0) {
             addNotificationInfo(notificationSpannableStringBuilder, new StyleSpan(Typeface.BOLD), "liveness of each face:\n");
+                String liveness0 = null;
+                switch (livenessInfoList.get(0).getLiveness()) {
+                    case LivenessInfo.ALIVE:
+                        liveness0 = "ALIVE";
+                        break;
+                    case LivenessInfo.NOT_ALIVE:
+                        liveness0 = "NOT_ALIVE";
+                        break;
+                    case LivenessInfo.UNKNOWN:
+                        liveness0 = "UNKNOWN";
+                        break;
+                    case LivenessInfo.FACE_NUM_MORE_THAN_ONE:
+                        liveness0 = "FACE_NUM_MORE_THAN_ONE";
+                        break;
+                    default:
+                        liveness0 = "UNKNOWN";
+                        break;
+                }
+                addNotificationInfo(alivenessStringBuilder,null,liveness0);
             for (int i = 0; i < livenessInfoList.size(); i++) {
                 String liveness = null;
                 switch (livenessInfoList.get(i).getLiveness()) {
@@ -327,7 +353,7 @@ public class SingleActivity {
             }
 
         }
-        return notificationSpannableStringBuilder.toString();
+        return alivenessStringBuilder.toString();
     }
     /**
      * 追加提示信息

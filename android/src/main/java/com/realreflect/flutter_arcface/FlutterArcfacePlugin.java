@@ -19,8 +19,9 @@ public class FlutterArcfacePlugin implements MethodCallHandler,PluginRegistry.Re
    private Activity activitys;
     private Result result;
     private MethodCall call;
-
-   private final PermissionManager permissionManager;
+    private MultiImageActivity multiImageActivity;
+    private SingleActivity singleActivity;
+    private final PermissionManager permissionManager;
 
    static final int REQUEST_EXTERNAL_ARCFACE_STORAGE_PERMISSION = 15880;
 
@@ -73,9 +74,11 @@ public class FlutterArcfacePlugin implements MethodCallHandler,PluginRegistry.Re
                             active();
                         } else if(this.call.method.equals("singleImage")){
                             String rStr=singleImage(this.call.argument("path"));
+                            unInit();
                             result.success(rStr);
                         }else if(this.call.method.equals("compareImage")){
                             String similar=compareImage(this.call.argument("path1"),this.call.argument("path2"));
+                            unInit();
                             result.success(similar);
                         }else{
                             result.notImplemented();
@@ -104,9 +107,11 @@ public class FlutterArcfacePlugin implements MethodCallHandler,PluginRegistry.Re
         active();
     } else if(call.method.equals("singleImage")){
         String rStr=singleImage(call.argument("path"));
+        unInit();
         result.success(rStr);
     }else if(call.method.equals("compareImage")){
         String similar=compareImage(call.argument("path1"),call.argument("path2"));
+        unInit();
         result.success(similar);
     }else{
         result.notImplemented();
@@ -117,6 +122,8 @@ public class FlutterArcfacePlugin implements MethodCallHandler,PluginRegistry.Re
           return;
       }
       ActiveActivity activeActivity=new ActiveActivity();
+      singleActivity=new SingleActivity();
+      multiImageActivity=new MultiImageActivity();
       int code=activeActivity.active(activitys);
       result.success("ActiveCode" + code);
   }
@@ -143,7 +150,6 @@ public class FlutterArcfacePlugin implements MethodCallHandler,PluginRegistry.Re
           return "-15880";
       }
       String rStr;
-      SingleActivity singleActivity=new SingleActivity();
       singleActivity.initEngine(activitys);
       rStr=singleActivity.processImage(String.valueOf(path));
       return rStr;
@@ -152,9 +158,16 @@ public class FlutterArcfacePlugin implements MethodCallHandler,PluginRegistry.Re
       if(!checkPermission()){
           return "-15880";
       }
-      MultiImageActivity multiImageActivity=new MultiImageActivity();
       multiImageActivity.initEngine(activitys);
       String similar = multiImageActivity.CompareImage(activitys,String.valueOf(path1),String.valueOf(path2));
       return similar;
+  }
+  private void unInit(){
+      if(singleActivity!=null){
+          singleActivity.unInitEngine();
+      }
+      if(multiImageActivity!=null){
+          multiImageActivity.unInitEngine();
+      }
   }
 }
