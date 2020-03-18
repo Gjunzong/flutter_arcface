@@ -3,20 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5f366700-c35c-4821-b550-6c99064cd208" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Podfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/AppDelegate.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/Runner-Bridging-Header.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/emptyMM.mm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/faceSDK/ArcSoftFaceEngine.framework/ArcSoftFaceEngine" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/faceSDK/ArcSoftFaceEngine.framework/Headers/ArcSoftFaceEngine.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/faceSDK/ArcSoftFaceEngine.framework/Headers/ArcSoftFaceEngineDefine.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/faceSDK/ArcSoftFaceEngine.framework/Headers/ArcSoftFaceEngineLib.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/faceSDK/ArcSoftFaceEngine.framework/Headers/amcomdef.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/faceSDK/ArcSoftFaceEngine.framework/Headers/merror.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/faceSDK/ArcSoftFaceEngine.framework/Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/faceSDK/ArcSoftFaceEngine.framework/Modules/module.modulemap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/faceSDK/ArcSoftFaceEngine.framework/_CodeSignature/CodeResources" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/flutter_arcface_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/flutter_arcface_test.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -141,8 +127,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="535" />
-    <option name="y" value="104" />
+    <option name="x" value="-74" />
+    <option name="y" value="173" />
     <option name="width" value="1382" />
     <option name="height" value="650" />
   </component>
@@ -220,7 +206,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-74" y="173" width="1382" height="650" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2489019" />
@@ -242,7 +228,7 @@
       <window_info anchor="bottom" id="Flutter Performance" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Logcat" order="9" />
-      <window_info anchor="bottom" id="Messages" order="10" visible="true" weight="0.26973686" />
+      <window_info anchor="bottom" id="Messages" order="10" visible="true" weight="0.31906614" />
       <window_info anchor="bottom" id="Find" order="11" weight="0.32879046" />
       <window_info anchor="bottom" id="Build" order="12" visible="true" weight="0.18739353" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
